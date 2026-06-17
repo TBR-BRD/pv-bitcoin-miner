@@ -1,0 +1,13 @@
+# Lokale Konfiguration / Zugangsdaten NIEMALS committen
+*.local
+*.local.*
+config.local.js
+secrets*
+.env
+.env.*
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
