@@ -1,5 +1,11 @@
 # PV-Bitcoin-Miner
 
+<br>
+<a href="https://www.buymeacoffee.com/thoralf.brandt" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174">
+</a>
+<br>
+
 ![MINER](Antminer-S19K-Pro.jpg)
 
 Überschuss-Strom einer PV-Anlage statt der Einspeisung ins Netz zum **Bitcoin-Mining** nutzen – der Miner regelt seine Leistung automatisch nach dem gerade verfügbaren PV-Überschuss. Gesteuert wird alles **direkt vom Shelly Pro 3EM** über ein Script; kein zusätzlicher Rechner nötig.
