@@ -1,6 +1,6 @@
 # PV-Bitcoin-Miner
 
-![MINER](Antminer S19K Pro.jpg)
+![MINER](Antminer_S19K_Pro.jpg)
 
 Überschuss-Strom einer PV-Anlage statt der Einspeisung ins Netz zum **Bitcoin-Mining** nutzen – der Miner regelt seine Leistung automatisch nach dem gerade verfügbaren PV-Überschuss. Gesteuert wird alles **direkt vom Shelly Pro 3EM** über ein Script; kein zusätzlicher Rechner nötig.
 
