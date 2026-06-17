@@ -136,9 +136,10 @@ Für PV-Überschuss zählt vor allem die **Effizienz** (J/TH): Je weniger Watt p
   Aufruf im Browser: `http://<shelly-ip>/rpc/EM.GetStatus?id=0`
 
 ### 3. Script einspielen
-- Shelly Web-UI → **Scripts** → **Add Script** → Inhalt aus [`shelly/pv-miner-control.js`](shelly/pv-miner-control.js) einfügen.
+- Shelly Web-UI → **Scripts** → **Add Script** → Inhalt aus [`pv-miner-control.js`](pv-miner-control.js) einfügen.
 - Im `CONFIG`-Block `minerIp`, `minerUser`, `minerPass` **lokal** eintragen.
-- Speichern, **Start**, Logs beobachten.
+- Speichern, **Start**, und in den Script-Optionen **„Run on startup" aktivieren** (sonst startet die Steuerung nach einem Stromausfall nicht von selbst).
+- Logs beobachten.
 
 ### Konfigurierbare Parameter (Auszug)
 
@@ -149,6 +150,26 @@ Für PV-Überschuss zählt vor allem die **Effizienz** (J/TH): Je weniger Watt p
 | `onThreshold` | `1050` | Überschuss zum Einschalten (W) |
 | `offThreshold` | `850` | Überschuss zum Ausschalten (W) |
 | `intervalSec` | `30` | Prüfintervall (s) |
+
+### 4. Dashboard aufrufen
+
+Das Script liefert eine Status-Seite **direkt vom Shelly** aus – kein Zusatzgerät nötig. Nach dem Start im Heimnetz erreichbar unter:
+
+```
+http://<shelly-ip>/script/<script-id>/ui
+```
+
+Die `<script-id>` ist die Nummer in der Shelly-UI unter „Scripts" (z. B. `1`). Die Seite zeigt Miner-Status (EIN/AUS), aktuelles Power-Target, Überschuss, verfügbare Leistung **und einen 7-Tage-Verlauf** (Überschuss in Gelb, Miner-Leistung in Grün) – genau wie in der Grafik oben. Live-Werte aktualisieren sich alle 5 s, der Verlauf alle 60 s. Das Diagramm ist reines Inline-SVG (keine externe Bibliothek, also auch ohne Internet nutzbar). Alle Daten kommen von der Shelly-eigenen Adresse (gleiche Herkunft → keine CORS-Probleme). Über **GitHub Pages funktioniert das Dashboard nicht** (eine HTTPS-Seite darf keine lokalen `http://`-Adressen abfragen) – es läuft nur im Heimnetz.
+
+Drei Endpunkte stehen bereit (die JSON-Endpunkte senden `Access-Control-Allow-Origin: *`, z. B. zum Mitloggen in Home Assistant):
+
+| Endpunkt | Inhalt |
+|---|---|
+| `…/ui` | HTML-Dashboard mit Diagramm |
+| `…/data` | Live-JSON: Status, Power-Target, Überschuss |
+| `…/history` | 7-Tage-Verlauf als JSON (stündliche Mittelwerte) |
+
+**7-Tage-Verlauf – bewusst an die Shelly-Grenzen angepasst:** Der persistente Speicher (KVS) erlaubt max. 253 Zeichen pro Wert und 50 Schlüssel, der RAM ist knapp. Eine feine Sekunden-/Minutenauflösung über 7 Tage ist damit nicht möglich. Das Script speichert daher **stündliche Mittelwerte** (168 Punkte) und sichert sie einmal pro Stunde in 7 KVS-Blöcken (je < 253 Zeichen) – so übersteht der Verlauf einen Neustart. Ausfallzeiten erscheinen als Lücken im Diagramm. Für feinere oder längere Historie eignet sich später ein kleiner Dauerläufer (Pi/Home Assistant), der den `…/history`-Endpunkt mitloggt.
 
 ---
 
@@ -165,13 +186,15 @@ Für PV-Überschuss zählt vor allem die **Effizienz** (J/TH): Je weniger Watt p
 
 ```
 pv-bitcoin-miner/
-├── README.md                  Diese Startseite
-├── LICENSE                    MIT-Lizenz
-├── .gitignore                 hält lokale Konfig/Zugangsdaten aus Git
-├── shelly/
-│   └── pv-miner-control.js     Steuer-Script für den Shelly Pro 3EM
-└── images/
-    └── schaltplan.svg          Schalt- und Signalplan
+├── README.md                       Diese Startseite
+├── LICENSE                         MIT-Lizenz
+├── .gitignore                      hält lokale Konfig/Zugangsdaten aus Git
+├── Antminer-S19K-Pro.jpg           Titelbild
+├── pv-miner-dashboard-grafik.png   Vorschau des Dashboards
+├── pv-miner-control.js             Steuer-Script + Dashboard für den Shelly Pro 3EM
+├── schaltplan.svg                  Schalt- und Signalplan
+└── .github/
+    └── FUNDING.yml                 Sponsoring-Links
 ```
 
 ---
