@@ -23,7 +23,9 @@ flowchart LR
     Shelly -. REST-API: Power-Target .-> Miner
 ```
 
-Vollständiger Schalt- und Signalplan: [`schaltplan.svg`](schaltplan.svg)
+Vollständiger Schalt- und Signalplan:
+
+![Schaltplan](schaltplan.svg)
 
 ---
 
