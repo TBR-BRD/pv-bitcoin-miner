@@ -70,6 +70,26 @@ sudo tailscale up
 ```
 Danach ist der PC über seine Tailscale-IP per SSH erreichbar – auch von unterwegs. Nach dem abendlichen Auto-Shutdown ist er bis zum morgendlichen RTC-Start offline (gewollt).
 
+## Status prüfen (per SSH)
+
+Ein Web-Dashboard wie beim ASIC gibt es hier (noch) nicht – der Status wird direkt auf dem PC per SSH abgefragt:
+
+**Live-Log der Steuerung** (Ein/Aus, Power-Target, Überschuss):
+```bash
+journalctl -u pv-gpu.service -f
+```
+
+**GPU-Status** (Temperatur, Leistungsaufnahme, aktuelles Power-Limit, Auslastung):
+```bash
+nvidia-smi
+```
+
+**Ob der Dienst und lolMiner laufen:**
+```bash
+systemctl status pv-gpu.service
+pgrep -a lolMiner
+```
+
 ## Hinweise
 
 - Die im Skript hinterlegte **NiceHash-Adresse** ist eine reine Empfangs-/Mining-Adresse – damit kann nur eingezahlt, nichts abgehoben werden.
