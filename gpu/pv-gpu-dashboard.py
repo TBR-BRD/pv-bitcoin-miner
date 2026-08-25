@@ -49,8 +49,8 @@ def get_miner_stats():
             data = json.load(r)
         algo = (data.get("Algorithms") or [{}])[0]
         return {
-            "hashrate": algo.get("Total_Speed", 0),
-            "unit": algo.get("Speed_Unit", "H/s"),
+            "hashrate": algo.get("Total_Performance", 0),
+            "unit": algo.get("Performance_Unit", "H/s"),
             "accepted": algo.get("Total_Accepted", 0),
             "rejected": algo.get("Total_Rejected", 0),
             "uptime": data.get("Session", {}).get("Uptime", 0),
