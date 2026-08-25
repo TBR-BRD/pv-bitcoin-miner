@@ -1,5 +1,7 @@
 # PV-Bitcoin-Miner
 
+> 💡 **PC-Variante mit GPU:** Wer keinen ASIC anschaffen will, findet im Ordner [`gpu/`](gpu/) eine Alternative auf Basis einer NVIDIA RTX 3070 (NiceHash/Autolykos2, PV-geregelt über den gleichen Shelly Pro 3EM).
+
 <br>
 <a href="https://www.buymeacoffee.com/thoralf.brandt" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174">
