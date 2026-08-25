@@ -81,6 +81,8 @@ python3 pv-gpu-dashboard.py
 
 Zeigt live (Aktualisierung alle 5 s): PV-Überschuss vom Shelly, Dienst-Status, GPU-Temperatur/-Leistung/-Auslastung und – sobald der Miner läuft – Hashrate sowie Accepted/Rejected-Shares direkt aus der lolMiner-API. Beenden mit `q`. Nutzt nur die Python-Standardbibliothek (`curses`), es ist also keine zusätzliche Installation nötig.
 
+![Terminal-Dashboard](pv-gpu-dashboard-screenshot.jpg)
+
 Alternativ die Rohdaten einzeln:
 
 **Live-Log der Steuerung** (Ein/Aus, Power-Target, Überschuss):
