@@ -27,6 +27,7 @@ Aufgeweckt wird der PC morgens per **BIOS-RTC-Timer** (z. B. 08:00). So ergibt s
 | Datei | Zweck |
 |---|---|
 | `pv-gpu-control.py` | Steuer-Skript (Shelly lesen, Power-Limit, Miner, Auto-Shutdown) |
+| `pv-gpu-dashboard.py` | Terminal-Dashboard für den Status (per SSH aufrufen) |
 | `pv-gpu.service` | systemd-Dienst für Autostart |
 | `schaltplan-gpu.svg` | Schalt- und Signalplan des GPU-Setups |
 
@@ -72,7 +73,15 @@ Danach ist der PC über seine Tailscale-IP per SSH erreichbar – auch von unter
 
 ## Status prüfen (per SSH)
 
-Ein Web-Dashboard wie beim ASIC gibt es hier (noch) nicht – der Status wird direkt auf dem PC per SSH abgefragt:
+Ein Web-Dashboard wie beim ASIC gibt es hier nicht – stattdessen ein **Terminal-Dashboard**, das man einfach in der SSH-Sitzung startet:
+
+```bash
+python3 pv-gpu-dashboard.py
+```
+
+Zeigt live (Aktualisierung alle 5 s): PV-Überschuss vom Shelly, Dienst-Status, GPU-Temperatur/-Leistung/-Auslastung und – sobald der Miner läuft – Hashrate sowie Accepted/Rejected-Shares direkt aus der lolMiner-API. Beenden mit `q`. Nutzt nur die Python-Standardbibliothek (`curses`), es ist also keine zusätzliche Installation nötig.
+
+Alternativ die Rohdaten einzeln:
 
 **Live-Log der Steuerung** (Ein/Aus, Power-Target, Überschuss):
 ```bash

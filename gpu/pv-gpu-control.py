@@ -55,7 +55,8 @@ def start_miner():
     global miner
     if miner is None:
         cmd = [MINER_PATH, "--algo", ALGO, "--pool", POOL,
-               "--user", USER_ADDR + "." + RIG_NAME, "--tls", TLS]
+               "--user", USER_ADDR + "." + RIG_NAME, "--tls", TLS,
+               "--apihost", "127.0.0.1", "--apiport", "4444"]
         miner = subprocess.Popen(cmd)
         log("Miner gestartet.")
 
