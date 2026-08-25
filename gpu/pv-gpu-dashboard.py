@@ -63,15 +63,13 @@ def get_miner_stats():
 def get_plug():
     try:
         with urllib.request.urlopen(
-            "http://" + PLUG_IP + "/status", timeout=4
+            "http://" + PLUG_IP + "/rpc/Switch.GetStatus?id=0", timeout=4
         ) as r:
             data = json.load(r)
-        meter = (data.get("meters") or [{}])[0]
-        relay = (data.get("relays") or [{}])[0]
         return {
-            "power": meter.get("power", 0.0),
-            "total_kwh": meter.get("total", 0) / 60000.0,
-            "on": relay.get("ison", False),
+            "power": data.get("apower", 0.0),
+            "total_kwh": data.get("aenergy", {}).get("total", 0) / 1000.0,
+            "on": data.get("output", False),
         }
     except Exception:
         return None
