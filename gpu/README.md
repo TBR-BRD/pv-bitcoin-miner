@@ -79,7 +79,7 @@ Ein Web-Dashboard wie beim ASIC gibt es hier nicht – stattdessen ein **Termina
 python3 pv-gpu-dashboard.py
 ```
 
-Zeigt live (Aktualisierung alle 5 s): PV-Überschuss vom Shelly, Dienst-Status, GPU-Temperatur/-Leistung/-Auslastung und – sobald der Miner läuft – Hashrate sowie Accepted/Rejected-Shares direkt aus der lolMiner-API. Beenden mit `q`. Nutzt nur die Python-Standardbibliothek (`curses`), es ist also keine zusätzliche Installation nötig.
+Zeigt live (Aktualisierung alle 5 s): PV-Überschuss vom Shelly, Dienst-Status, GPU-Temperatur/-Leistung/-Auslastung, Hashrate sowie Accepted/Rejected-Shares aus der lolMiner-API, und die tatsächliche Leistungsaufnahme des PCs über eine vorgeschaltete **Shelly Plug S** (`PLUG_IP` im Skript). Beenden mit `q`. Nutzt nur die Python-Standardbibliothek (`curses`), es ist also keine zusätzliche Installation nötig.
 
 ![Terminal-Dashboard](pv-gpu-dashboard-screenshot.jpg)
 

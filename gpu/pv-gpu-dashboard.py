@@ -10,6 +10,7 @@ import time
 import urllib.request
 
 SHELLY_IP    = "192.168.178.27"
+PLUG_IP      = "192.168.178.180"   # Shelly Plug S vor dem PC (Gesamtaufnahme des Rechners)
 LOLMINER_API = "http://127.0.0.1:4444"
 SERVICE      = "pv-gpu.service"
 REFRESH_SEC  = 5
@@ -59,6 +60,23 @@ def get_miner_stats():
         return None
 
 
+def get_plug():
+    try:
+        with urllib.request.urlopen(
+            "http://" + PLUG_IP + "/status", timeout=4
+        ) as r:
+            data = json.load(r)
+        meter = (data.get("meters") or [{}])[0]
+        relay = (data.get("relays") or [{}])[0]
+        return {
+            "power": meter.get("power", 0.0),
+            "total_kwh": meter.get("total", 0) / 60000.0,
+            "on": relay.get("ison", False),
+        }
+    except Exception:
+        return None
+
+
 def get_service_active():
     try:
         return subprocess.run(
@@ -85,6 +103,7 @@ def draw(stdscr):
         surplus = get_surplus()
         gpu = get_gpu()
         miner = get_miner_stats()
+        plug = get_plug()
         service = get_service_active()
 
         stdscr.erase()
@@ -123,6 +142,15 @@ def draw(stdscr):
             line("  Laufzeit:          %s" % fmt_uptime(miner["uptime"]))
         else:
             line("Miner: aktuell nicht aktiv oder API nicht erreichbar")
+        line()
+
+        if plug:
+            line("Steckdose PC (Shelly Plug S):")
+            line("  Zustand:           %s" % ("EIN" if plug["on"] else "AUS"))
+            line("  Leistungsaufnahme: %.1f W" % plug["power"])
+            line("  Gesamt (seit Reset): %.2f kWh" % plug["total_kwh"])
+        else:
+            line("Steckdose PC: nicht erreichbar")
 
         line()
         line("-" * 60)
