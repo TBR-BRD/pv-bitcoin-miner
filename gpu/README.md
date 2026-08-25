@@ -30,13 +30,27 @@ Aufgeweckt wird der PC morgens per **BIOS-RTC-Timer** (z. B. 08:00). So ergibt s
 | `pv-gpu.service` | systemd-Dienst für Autostart |
 | `schaltplan-gpu.svg` | Schalt- und Signalplan des GPU-Setups |
 
+## NiceHash-Ersteinrichtung
+
+1. **Konto anlegen:** Auf [nicehash.com](https://www.nicehash.com) registrieren (E-Mail bestätigen). Eine KYC-Verifizierung ist für reines Mining/Auszahlen üblicher Beträge zunächst **nicht** nötig, kann aber ab bestimmten Auszahlungssummen verlangt werden.
+2. **2FA aktivieren:** Im Konto unter **Settings → Security** eine Zwei-Faktor-Authentifizierung (Google Authenticator o. ä.) einrichten – schützt vor allem den Auszahlungs-/Login-Zugriff.
+3. **Mining-Adresse ermitteln:** Unter **Mining → Mining farms** (bzw. direkt im Dashboard) wird eine persönliche **Bitcoin-Empfangsadresse** angezeigt (Format `3...`). Das ist die Adresse, die unten in `pv-gpu-control.py` bei `USER_ADDR` eingetragen wird – **nicht** die normale Wallet-Adresse, sondern die spezielle Mining-Adresse.
+   - Alternativ lässt sich auch eine eigene externe BTC-Adresse (z. B. Hardware-Wallet) als Auszahlungsziel hinterlegen: **Wallet → Withdrawal address**.
+4. **Rig-Namen vergeben (optional):** Beim ersten Verbindungsaufbau von lolMiner erscheint das Gerät unter **Mining → Rig manager** automatisch – Name kann dort umbenannt werden, um mehrere Geräte zu unterscheiden.
+5. **Auszahlung konfigurieren:** Unter **Wallet → Settings** die automatische Auszahlung (z. B. täglich, Mindestbetrag) an die eigene Bitcoin-Adresse einstellen, falls die verdienten Coins nicht dauerhaft im NiceHash-Wallet bleiben sollen.
+6. **Mobile App zur Kontrolle (optional, empfohlen):** Zeigt Hashrate, Verdienst und Rig-Status in Echtzeit.
+   - iOS: [App Store](https://apps.apple.com/app/nicehash/id1372054956)
+   - Android: [Google Play](https://play.google.com/store/apps/details?id=com.nicehash.metallum)
+
+> ⚠️ Die App selbst mined nicht (kein Mining auf dem Smartphone) – sie dient nur zur Überwachung des über lolMiner laufenden Rigs.
+
 ## Einrichtung (Kurzfassung)
 
 Vollständige Schritt-für-Schritt-Anleitung: siehe Haupt-Repo. Kurz:
 
 1. Ubuntu + NVIDIA-Treiber installieren (`sudo ubuntu-drivers install`).
 2. lolMiner herunterladen und entpacken; Pfad im Skript bei `MINER_PATH` eintragen.
-3. `pv-gpu-control.py` anpassen (`SHELLY_IP`, `USER_ADDR` = NiceHash-Adresse) und ablegen.
+3. `pv-gpu-control.py` anpassen (`SHELLY_IP`, `USER_ADDR` = NiceHash-Mining-Adresse aus Schritt 3 oben) und ablegen.
 4. `sudo apt install python3-requests -y`
 5. Als Dienst einrichten:
    ```bash
