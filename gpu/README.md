@@ -101,6 +101,14 @@ systemctl status pv-gpu.service
 pgrep -a lolMiner
 ```
 
+## Home Assistant
+
+Für Konto-, Rig- und Geräte-Sensoren (Guthaben, Rig-Status/-Temperatur, Hashrate, Auszahlungen) direkt in Home Assistant eignet sich die Custom-Integration **[brianberg/ha-nicehash](https://github.com/brianberg/ha-nicehash)** (über HACS installierbar). Benötigt wird ein NiceHash-**API-Key** (NiceHash-Konto → **Settings → API Keys**), nicht die Rig-URL selbst.
+
+![NiceHash-Sensoren in Home Assistant](https://user-images.githubusercontent.com/5121741/87257533-b4135f00-c469-11ea-82ca-e9614ead4e26.png)
+
+*Vorschau aus dem [brianberg/ha-nicehash](https://github.com/brianberg/ha-nicehash) Repository.*
+
 ## Hinweise
 
 - Die im Skript hinterlegte **NiceHash-Adresse** ist eine reine Empfangs-/Mining-Adresse – damit kann nur eingezahlt, nichts abgehoben werden.
