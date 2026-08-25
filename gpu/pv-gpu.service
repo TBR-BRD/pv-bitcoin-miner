@@ -1,0 +1,11 @@
+[Unit]
+Description=PV-GPU-Steuerung
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/heizung/pv-gpu-control.py
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
