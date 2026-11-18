@@ -1,5 +1,7 @@
 # PV-Bitcoin-Miner
 
+🇩🇪 Deutsch · [🇬🇧 English](README_EN.md)
+
 > 💡 **PC-Variante mit GPU:** Wer keinen ASIC anschaffen will, findet im Ordner [`gpu/`](gpu/) eine Alternative auf Basis einer NVIDIA RTX 3070 (NiceHash/Autolykos2, PV-geregelt über den gleichen Shelly Pro 3EM).
 
 <br>
